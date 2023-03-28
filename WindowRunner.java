@@ -1,15 +1,18 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class WindowRunner extends JFrame {
 	private static NodeManager nm;
-	private JButton refreshButton;
 	
 	class RefreshButtonListener implements ActionListener	{
 		@Override
@@ -34,19 +37,28 @@ public class WindowRunner extends JFrame {
 	}
 	
 	private void initialize(int width, int height, int x, int y)	{
-		// Configure Frame
 		this.setBounds(x, y, width, height);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(new Color(50, 50, 50));
 		
+		// RefreshButtonPanel
+		JPanel refreshButtonPanel = new JPanel();
+		refreshButtonPanel.setLayout(new GridBagLayout());
+		refreshButtonPanel.setOpaque(false);
 		
-		// Build Components
-		refreshButton = new JButton("Refresh");
+		// RefreshButton
+		JButton refreshButton = new JButton("Refresh");
 		refreshButton.setFont(new Font("Arial", Font.PLAIN, 10));
 		refreshButton.setBackground(new Color(100, 100, 100));
+		refreshButton.setFocusable(false);
+		refreshButton.setRolloverEnabled(false);
+		refreshButton.setPreferredSize(new Dimension(70, 20));
 		
-		// Add Components to display
-		this.add(refreshButton, BorderLayout.SOUTH);
+		// Add Components
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.LINE_END;
+		refreshButtonPanel.add(refreshButton, gbc);
+		this.add(refreshButtonPanel, BorderLayout.SOUTH);
 		
 		// ActionListeners
 		refreshButton.addActionListener(new RefreshButtonListener());

@@ -39,5 +39,6 @@ public class NodeManager {
 	
 	public void refresh()	{
 		// TODO: Refresh locations of nodes on map
+		System.out.println("nm.refresh");
 	}
 }
